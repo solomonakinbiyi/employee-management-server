@@ -54,7 +54,7 @@ const StartServer = () => {
   });
 
   // Routes
-  router.use("/employees", employeeRoutes);
+  router.use("/api", employeeRoutes);
 
   // Health check
   router.get("/health", (req: Request, res: Response) => {
