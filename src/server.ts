@@ -9,7 +9,7 @@ const router = express();
 mongoose
   .connect(config.mongo.url)
   .then(() => {
-    Logging.info("Database connected 🔥🔧🎂");
+    Logging.info(`Database connected 🎂`);
     StartServer();
   })
   .catch((_error) => {
@@ -56,12 +56,12 @@ const StartServer = () => {
 
   // Health check
   router.get("/health", (req: Request, res: Response) => {
-    res.status(200).json({ status: "UP" });
+    res.status(200).json({ status: "UP 🔥🔧🎂" });
   });
 
   // Error handling
   router.use((req: Request, res: Response) => {
-    const _error = new Error("Not found");
+    const _error = new Error("Url not found 😟");
     Logging.error(_error);
     return res.status(404).json({ message: _error.message });
   });
@@ -69,6 +69,6 @@ const StartServer = () => {
   http
     .createServer(router)
     .listen(config.server.port, () =>
-      Logging.info(`Server is running  on port ${config.server.port}`)
+      Logging.info(`Server is running on port ${config.server.port} 🔥🔧`)
     );
 };
