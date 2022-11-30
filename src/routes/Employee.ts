@@ -1,3 +1,4 @@
+import { validateSchema, Schemas } from "./../middlewares/ValidateSchema";
 import {
   createEmployee,
   deleteEmployee,
@@ -9,10 +10,26 @@ import express from "express";
 
 const router = express.Router();
 
-router.post("/employees", createEmployee);
-router.get("/employees/:employeeId", readEmployee);
+router.post(
+  "/employees",
+  validateSchema(Schemas.employee.createEmployee),
+  createEmployee
+);
+router.get(
+  "/employees/:_id",
+  validateSchema(Schemas.employee.readEmployee),
+  readEmployee
+);
 router.get("/employees", readAllEmployees);
-router.patch("/employees/:employeeId", updateEmployee);
-router.delete("/employees/:employeeId", deleteEmployee);
+router.patch(
+  "/employees/:_id",
+  validateSchema(Schemas.employee.updateEmployee),
+  updateEmployee
+);
+router.delete(
+  "/employees/:_id",
+  validateSchema(Schemas.employee.deleteEmployee),
+  deleteEmployee
+);
 
 export = router;

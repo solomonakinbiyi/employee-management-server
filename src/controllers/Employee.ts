@@ -50,10 +50,10 @@ export const readEmployee = async (
   res: Response,
   next: NextFunction
 ) => {
-  const employeeId = req.params.employeeId;
+  const _id = req.params._id;
 
   try {
-    const employee = await Employee.findById(employeeId);
+    const employee = await Employee.findById(_id);
     return employee
       ? res.status(200).json(employee)
       : res.status(404).json({ message: "Not found." });
@@ -86,10 +86,10 @@ export const updateEmployee = async (
   res: Response,
   next: NextFunction
 ) => {
-  const employeeId = req.params.employeeId;
+  const _id = req.params._id;
 
   try {
-    const employee = await Employee.findById(employeeId);
+    const employee = await Employee.findById(_id);
     if (employee) {
       employee.set(req.body);
       await employee.save();
@@ -109,10 +109,10 @@ export const deleteEmployee = async (
   res: Response,
   next: NextFunction
 ) => {
-  const employeeId = req.params.employeeId;
+  const _id = req.params._id;
 
   try {
-    const employee = await Employee.findByIdAndDelete(employeeId);
+    const employee = await Employee.findByIdAndDelete(_id);
     return employee
       ? res.status(200).json({ message: "Employee deleted." })
       : res.status(404).json({ message: "Not found." });
