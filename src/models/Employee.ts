@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 
 export interface IEmpoyee {
+  _id: Types.ObjectId;
   firstname: string;
   lastname: string;
   email: string;
@@ -17,6 +18,7 @@ export interface IEmployeeModel extends IEmpoyee {}
 
 const EmployeeSchema = new mongoose.Schema(
   {
+    _id: { type: Schema.Types.ObjectId, ref: "_id" },
     firstname: { type: "string", required: true },
     lastname: { type: "string", required: true },
     email: { type: "string", required: true },
