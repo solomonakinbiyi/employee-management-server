@@ -3,6 +3,7 @@ import express, { json, NextFunction, Request, Response } from "express";
 import http from "http";
 import mongoose from "mongoose";
 import Logging from "./library/Logging";
+import employeeRoutes from "./routes/Employee";
 
 const router = express();
 
@@ -53,6 +54,7 @@ const StartServer = () => {
   });
 
   // Routes
+  router.use("/employees", employeeRoutes);
 
   // Health check
   router.get("/health", (req: Request, res: Response) => {
