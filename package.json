@@ -2,7 +2,7 @@
   "name": "employee-management",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
     "build": "rm -rf build/ && tsc",
     "start": "node build/server.js"
