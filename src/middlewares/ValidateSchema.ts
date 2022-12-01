@@ -1,4 +1,4 @@
-import { IEmpoyee } from "./../models/Employee";
+import { IEmpoyee } from "../models/interfaces/IEmployee";
 import { createEmployee } from "./../controllers/Employee";
 import { NextFunction, Request, Response } from "express";
 import Joi, { ObjectSchema } from "joi";

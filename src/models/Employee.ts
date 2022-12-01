@@ -1,18 +1,6 @@
 import mongoose, { Schema, Types } from "mongoose";
-
-export interface IEmpoyee {
-  _id: Types.ObjectId;
-  firstname: string;
-  lastname: string;
-  email: string;
-  password: string;
-  street: string;
-  city: string;
-  state: string;
-  zipcode: string;
-  country: string;
-  phone: string;
-}
+import { Status } from "./enums/Status";
+import { IEmpoyee } from "./interfaces/IEmployee";
 
 export interface IEmployeeModel extends IEmpoyee {}
 
@@ -29,6 +17,7 @@ const EmployeeSchema = new mongoose.Schema(
     zipcode: { type: "string", required: true },
     country: { type: "string", required: true },
     phone: { type: "string", required: true },
+    status: { type: "string", enum: Status, default: Status.pending },
   },
   { versionKey: false }
 );
