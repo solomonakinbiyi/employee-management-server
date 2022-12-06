@@ -7,7 +7,7 @@ export const createEmployee = async (
   res: Response,
   next: NextFunction
 ) => {
-  const {
+  let {
     firstname,
     lastname,
     email,
@@ -19,6 +19,17 @@ export const createEmployee = async (
     country,
     phone,
   } = req.body;
+
+  firstname = firstname.toLowerCase();
+  lastname = lastname.toLowerCase();
+  email = email.toLowerCase();
+  password = password.toLowerCase();
+  street = street.toLowerCase();
+  city = city.toLowerCase();
+  state = state.toLowerCase();
+  zipcode = zipcode.toLowerCase();
+  country = country.toLowerCase();
+  phone = phone.toLowerCase();
 
   const employee = new Employee({
     _id: new mongoose.Types.ObjectId(),
@@ -35,7 +46,15 @@ export const createEmployee = async (
   });
 
   try {
+    const emailExists = await Employee.findOne({ email });
+    if (emailExists) {
+      return res.json({
+        error: "Email already exists.",
+      });
+    }
+
     await employee.save();
+
     return res.status(200).json({ message: "Empoyee created successfully." });
   } catch (_error) {
     console.log(
@@ -50,10 +69,10 @@ export const readEmployee = async (
   res: Response,
   next: NextFunction
 ) => {
-  const _id = req.params._id;
+  const { email } = req.params;
 
   try {
-    const employee = await Employee.findById(_id);
+    const employee = await Employee.findOne({ email });
     return employee
       ? res.status(200).json(employee)
       : res.status(404).json({ message: "Not found." });
@@ -86,10 +105,10 @@ export const updateEmployee = async (
   res: Response,
   next: NextFunction
 ) => {
-  const _id = req.params._id;
+  const { email } = req.params;
 
   try {
-    const employee = await Employee.findById(_id);
+    const employee = await Employee.findOne({ email });
     if (employee) {
       employee.set(req.body);
       await employee.save();
@@ -109,7 +128,7 @@ export const deleteEmployee = async (
   res: Response,
   next: NextFunction
 ) => {
-  const _id = req.params._id;
+  const { _id } = req.params;
 
   try {
     const employee = await Employee.findByIdAndDelete(_id);
