@@ -1,3 +1,4 @@
+import { createValidator } from "./../middlewares/Employee.route.validator";
 import {
   createEmployee,
   deleteEmployee,
@@ -9,22 +10,10 @@ import express from "express";
 
 const router = express.Router();
 
-router.post(
-  "/employees",
-  createEmployee
-);
-router.get(
-  "/employees/:email",
-  readEmployee
-);
+router.post("/employees", createValidator, createEmployee);
+router.get("/employees/:email", readEmployee);
 router.get("/employees", readAllEmployees);
-router.patch(
-  "/employees/:email",
-  updateEmployee
-);
-router.delete(
-  "/employees/:_id",
-  deleteEmployee
-);
+router.patch("/employees/:email", updateEmployee);
+router.delete("/employees/:_id", deleteEmployee);
 
 export = router;
