@@ -142,3 +142,4 @@ export const deleteEmployee = async (
     res.status(500).json({ error: "Something went wrong." });
   }
 };
+
