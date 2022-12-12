@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express";
 import Employee from "../models/Employee";
+import { hashPassword } from "./Authentication/helpers/auth";
 
 export const createEmployee = async (
   req: Request,
@@ -31,12 +32,15 @@ export const createEmployee = async (
   country = country.toLowerCase();
   phone = phone.toLowerCase();
 
+  // hash password
+  const hashedPassword = await hashPassword(password);
+
   const employee = new Employee({
     _id: new mongoose.Types.ObjectId(),
     firstname,
     lastname,
     email,
-    password,
+    password: hashedPassword,
     street,
     city,
     state,
