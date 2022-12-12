@@ -65,7 +65,7 @@ export const createValidator: ValidationChain[] = [
 ];
 
 export const updateValidator: ValidationChain[] = [
-  body("id")
+  body("email")
     .not()
     .isEmpty()
     .withMessage("The task id is mandatory")
