@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { NextFunction, Request, Response } from "express";
 import Employee from "../models/Employee";
 import { hashPassword } from "./Authentication/helpers/auth";
+import { validationResult } from "express-validator";
 
 export const createEmployee = async (
   req: Request,
@@ -20,6 +21,11 @@ export const createEmployee = async (
     country,
     phone,
   } = req.body;
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
 
   firstname = firstname.toLowerCase();
   lastname = lastname.toLowerCase();
