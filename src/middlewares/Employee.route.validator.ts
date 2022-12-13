@@ -73,6 +73,16 @@ export const createValidator: ValidationChain[] = [
     .withMessage("Phone needs to be in a text format."),
 ];
 
+export const readValidator: ValidationChain[] = [
+  param("email")
+    .not()
+    .isEmpty()
+    .withMessage("Email is mandatory.")
+    .trim()
+    .isString()
+    .withMessage("Email needs to be in a text format."),
+];
+
 export const updateValidator: ValidationChain[] = [
   body("email")
     .not()
@@ -117,4 +127,14 @@ export const updateValidator: ValidationChain[] = [
     .optional()
     .isString()
     .withMessage("Phone needs to be in a text format."),
+];
+
+export const deleteValidator: ValidationChain[] = [
+  param("email")
+    .not()
+    .isEmpty()
+    .withMessage("Employee email is mandatory")
+    .trim()
+    .isString()
+    .withMessage("Email needs to be in a text format."),
 ];

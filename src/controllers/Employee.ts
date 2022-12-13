@@ -143,13 +143,23 @@ export const deleteEmployee = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { _id } = req.params;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { email } = req.params;
 
   try {
-    const employee = await Employee.findByIdAndDelete(_id);
-    return employee
-      ? res.status(200).json({ message: "Employee deleted." })
-      : res.status(404).json({ message: "Not found." });
+    const employee = await Employee.findOne({ email });
+
+    if (!employee) {
+      return res.status(404).json({ message: "Employee not found." });
+    }
+
+    await Employee.deleteOne({ email });
+
+    return res.status(200).json({ message: "Employee deleted successfully." });
   } catch (_error) {
     console.log(
       `Something went wrong while creating a new employee. 💩 Error: ${_error}`

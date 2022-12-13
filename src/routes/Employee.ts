@@ -1,5 +1,7 @@
 import {
   createValidator,
+  deleteValidator,
+  readValidator,
   updateValidator,
 } from "./../middlewares/Employee.route.validator";
 import {
@@ -14,9 +16,9 @@ import express from "express";
 const router = express.Router();
 
 router.post("/employees", createValidator, createEmployee);
-router.get("/employees/:email", readEmployee);
+router.get("/employees/:email", readValidator, readEmployee);
 router.get("/employees", readAllEmployees);
 router.put("/employees", updateValidator, updateEmployee);
-router.delete("/employees/:_id", deleteEmployee);
+router.delete("/employees/:email", deleteValidator, deleteEmployee);
 
 export = router;
