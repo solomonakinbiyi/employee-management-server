@@ -85,7 +85,7 @@ export const readEmployee = async (
     const employee = await Employee.findOne({ email });
     return employee
       ? res.status(200).json(employee)
-      : res.status(404).json({ message: "Not found." });
+      : res.status(404).json({ message: "Employee not found." });
   } catch (_error) {
     console.log(
       `Something went wrong while creating a new employee. 💩 Error: ${_error}`

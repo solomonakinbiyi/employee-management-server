@@ -138,3 +138,20 @@ export const deleteValidator: ValidationChain[] = [
     .isString()
     .withMessage("Email needs to be in a text format."),
 ];
+
+export const signinValidator: ValidationChain[] = [
+  body("email")
+    .not()
+    .isEmpty()
+    .withMessage("Email is mandatory.")
+    .trim()
+    .isString()
+    .withMessage("Email needs to be in a text format."),
+  body("password")
+    .not()
+    .isEmpty()
+    .withMessage("Password is mandatory.")
+    .trim()
+    .isString()
+    .withMessage("Password needs to be in a text format."),
+];
