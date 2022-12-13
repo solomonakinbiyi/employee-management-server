@@ -82,7 +82,7 @@ export const readEmployee = async (
   const { email } = req.params;
 
   try {
-    const employee = await Employee.findOne({ email });
+    const employee = await Employee.findOne({ email }).select("-_id");
     return employee
       ? res.status(200).json(employee)
       : res.status(404).json({ message: "Employee not found." });
@@ -100,7 +100,7 @@ export const readAllEmployees = async (
   next: NextFunction
 ) => {
   try {
-    const employees = await Employee.find();
+    const employees = await Employee.find().select("-_id");
     return res.status(200).json(employees);
   } catch (_error) {
     console.log(
@@ -127,9 +127,9 @@ export const updateEmployee = async (
     if (employee) {
       employee.set(req.body);
       await employee.save();
-      return res.status(201).json(employee);
+      return res.status(201).json({ message: "Employee updated." });
     }
-    return res.status(404).json({ message: "Not found." });
+    return res.status(404).json({ message: "Employee not found." });
   } catch (_error) {
     console.log(
       `Something went wrong while creating a new employee. 💩 Error: ${_error}`
