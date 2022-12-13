@@ -58,7 +58,7 @@ export const createEmployee = async (
   try {
     const emailExists = await Employee.findOne({ email });
     if (emailExists) {
-      return res.json({
+      return res.status(400).json({
         error: "Email already exists.",
       });
     }
