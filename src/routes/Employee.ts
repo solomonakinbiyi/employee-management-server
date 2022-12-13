@@ -1,4 +1,7 @@
-import { createValidator } from "./../middlewares/Employee.route.validator";
+import {
+  createValidator,
+  updateValidator,
+} from "./../middlewares/Employee.route.validator";
 import {
   createEmployee,
   deleteEmployee,
@@ -13,7 +16,7 @@ const router = express.Router();
 router.post("/employees", createValidator, createEmployee);
 router.get("/employees/:email", readEmployee);
 router.get("/employees", readAllEmployees);
-router.patch("/employees/:email", updateEmployee);
+router.put("/employees", updateValidator, updateEmployee);
 router.delete("/employees/:_id", deleteEmployee);
 
 export = router;

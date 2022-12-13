@@ -115,7 +115,12 @@ export const updateEmployee = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { email } = req.params;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { email } = req.body;
 
   try {
     const employee = await Employee.findOne({ email });
@@ -152,4 +157,3 @@ export const deleteEmployee = async (
     res.status(500).json({ error: "Something went wrong." });
   }
 };
-
