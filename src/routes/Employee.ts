@@ -6,22 +6,25 @@ import {
   updateValidator,
 } from "./../middlewares/Employee.route.validator";
 import {
-  createEmployee,
   deleteEmployee,
   readAllEmployees,
   readEmployee,
   updateEmployee,
-} from "./../controllers/Employee";
+} from "../controllers/Employee/Employee.protected";
+import { createEmployee } from "../controllers/Employee/Employee.unprotected";
 import express from "express";
 import { signin } from "../controllers/Authentication/Employee";
+import { requireSignIn } from "../controllers/Authentication/helpers/auth";
 
 const router = express.Router();
 
 router.post("/employees", createValidator, createEmployee);
-router.get("/employees/:email", readValidator, readEmployee);
-router.get("/employees", readAllEmployees);
-router.put("/employees", updateValidator, updateEmployee);
-router.delete("/employees/:email", deleteValidator, deleteEmployee);
+
+// protected routes
+router.get("/employees", requireSignIn, readValidator, readEmployee);
+router.get("/employees", requireSignIn, readAllEmployees);
+router.put("/employees", requireSignIn, updateValidator, updateEmployee);
+router.delete("/employees", requireSignIn, deleteValidator, deleteEmployee);
 
 // authentication
 router.post("/employees/signin", signinValidator, signin);

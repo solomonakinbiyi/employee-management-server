@@ -9,7 +9,7 @@
     "start": "node build/server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "@solomonakinbiyi",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
