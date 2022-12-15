@@ -21,7 +21,7 @@ const router = express.Router();
 router.post("/employees", createValidator, createEmployee);
 
 // protected routes
-router.get("/employees", requireSignIn, readValidator, readEmployee);
+router.get("/employees/:email", requireSignIn, readValidator, readEmployee);
 router.get("/employees", requireSignIn, readAllEmployees);
 router.put("/employees", requireSignIn, updateValidator, updateEmployee);
 router.delete("/employees", requireSignIn, deleteValidator, deleteEmployee);

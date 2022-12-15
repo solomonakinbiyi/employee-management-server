@@ -8,7 +8,7 @@ export const readEmployee = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { email } = req.auth!;
+  const { email } = req.params;
 
   try {
     const employee = await Employee.findOne({ email }).select("-_id");
