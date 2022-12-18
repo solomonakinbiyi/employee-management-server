@@ -10,7 +10,7 @@ Content-Type: application/json
     "city": "dummy",
     "state": "dummy",
     "zipcode": "dummy",
-    "country": "Nigeria",
+    "country": "dummy",
     "phone": "dummy"
 }
 
