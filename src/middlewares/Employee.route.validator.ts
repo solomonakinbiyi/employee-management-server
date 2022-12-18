@@ -84,13 +84,6 @@ export const readValidator: ValidationChain[] = [
 ];
 
 export const updateValidator: ValidationChain[] = [
-  body("email")
-    .not()
-    .isEmpty()
-    .withMessage("Email is mandatory.")
-    .trim()
-    .isString()
-    .withMessage("Email needs to be in a text format."),
   body("firstname")
     .optional()
     .isString()
@@ -127,16 +120,6 @@ export const updateValidator: ValidationChain[] = [
     .optional()
     .isString()
     .withMessage("Phone needs to be in a text format."),
-];
-
-export const deleteValidator: ValidationChain[] = [
-  param("email")
-    .not()
-    .isEmpty()
-    .withMessage("Employee email is mandatory")
-    .trim()
-    .isString()
-    .withMessage("Email needs to be in a text format."),
 ];
 
 export const signinValidator: ValidationChain[] = [

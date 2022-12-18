@@ -51,6 +51,12 @@ export const updateEmployee = async (
 
   const { email } = req.auth!;
 
+  if (req.body.email) {
+    return res.status(401).json({
+      error: "Cannot update email at this time.",
+    });
+  }
+
   try {
     const employee = await Employee.findOne({ email });
     if (employee) {

@@ -1,6 +1,5 @@
 import {
   createValidator,
-  deleteValidator,
   readValidator,
   signinValidator,
   updateValidator,
@@ -24,7 +23,7 @@ router.post("/employees", createValidator, createEmployee);
 router.get("/employees/:email", requireSignIn, readValidator, readEmployee);
 router.get("/employees", requireSignIn, readAllEmployees);
 router.put("/employees", requireSignIn, updateValidator, updateEmployee);
-router.delete("/employees", requireSignIn, deleteValidator, deleteEmployee);
+router.delete("/employees", requireSignIn, deleteEmployee);
 
 // authentication
 router.post("/employees/signin", signinValidator, signin);

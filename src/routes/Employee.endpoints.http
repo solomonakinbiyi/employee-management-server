@@ -1,0 +1,51 @@
+### Create a new employee
+POST http://localhost:9090/api/employees/
+Content-Type: application/json
+{
+    "firstname": "dummy",
+    "lastname": "dummy",
+    "email": "dummy@gmail.com",
+    "password": "dummy",
+    "street": "dummy",
+    "city": "dummy",
+    "state": "dummy",
+    "zipcode": "dummy",
+    "country": "Nigeria",
+    "phone": "dummy"
+}
+
+
+### Read an employee
+GET http://localhost:9090/api/employees/dummy@email.com
+Content-Type: application/json
+Authorization: Bearer token
+
+
+### Read all employees
+GET http://localhost:9090/api/employees
+Content-Type: application/json
+Authorization: Bearer token
+
+
+### Update an employee
+PUT http://localhost:9090/api/employees
+Content-Type: application/json
+Authorization: Bearer token
+{
+    "any_property": "dummy"
+}
+
+
+### Delete an employee
+DELETE http://localhost:9090/api/employees
+Content-Type: application/json
+Authorization: Bearer token
+
+
+### Sign in an employee
+POST http://localhost:9090/api/employees/signin
+Content-Type: application/json
+{
+    "email": "Johndoe@gmail.com",
+    "password": "uhwt009h3"
+}
