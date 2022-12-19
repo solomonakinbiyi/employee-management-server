@@ -24,7 +24,7 @@ export const createEmployee = async (
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    return res.json({ errors: errors.array() }).status(400);
   }
 
   firstname = firstname.toLowerCase();
@@ -58,18 +58,20 @@ export const createEmployee = async (
   try {
     const emailExists = await Employee.findOne({ email });
     if (emailExists) {
-      return res.status(400).json({
-        error: "Email already exists.",
-      });
+      return res
+        .json({
+          error: "Email already exists.",
+        })
+        .status(400);
     }
 
     await employee.save();
 
-    return res.status(200).json({ message: "Empoyee created successfully." });
+    return res.json({ message: "Empoyee created successfully." }).status(200);
   } catch (_error) {
     console.log(
       `Something went wrong while creating a new employee. 💩 Error: ${_error}`
     );
-    res.status(500).json({ error: "Something went wrong." });
+    return res.json({ error: "Something went wrong." }).status(500);
   }
 };

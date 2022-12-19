@@ -14,7 +14,11 @@ export const signin = async (
 ) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    return res
+      .json({
+        errors: errors.array(),
+      })
+      .status(400);
   }
 
   let { email, password } = req.body;
@@ -26,17 +30,21 @@ export const signin = async (
     // check if db has employee with email
     const userCredentials = await Employee.findOne({ email });
     if (!userCredentials) {
-      return res.status(400).json({
-        error: "Email not found",
-      });
+      return res
+        .json({
+          error: "Email not found",
+        })
+        .status(400);
     }
 
     // check if password matches encrypted password
     const match = await comparePassword(password, userCredentials.password);
     if (!match) {
-      return res.status(400).json({
-        error: "Wrong password",
-      });
+      return res
+        .json({
+          error: "Wrong password",
+        })
+        .status(400);
     }
 
     // create signed token
@@ -48,14 +56,18 @@ export const signin = async (
       }
     );
 
-    res.json({
-      token,
-      email: userCredentials.email,
-    });
+    return res
+      .json({
+        token,
+        email: userCredentials.email,
+      })
+      .status(200);
   } catch (error) {
     console.log("Sign in failed => ", error);
-    return res.status(500).send({
-      error: "Error. Please try again.",
-    });
+    return res
+      .json({
+        error: "Error. Please try again.",
+      })
+      .status(500);
   }
 };

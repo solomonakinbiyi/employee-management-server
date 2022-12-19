@@ -46,6 +46,6 @@ Authorization: Bearer token
 POST http://localhost:9090/api/employees/signin
 Content-Type: application/json
 {
-    "email": "Johndoe@gmail.com",
+    "email": "dummy@gmail.com",
     "password": "uhwt009h3"
 }

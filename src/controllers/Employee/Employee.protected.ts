@@ -13,13 +13,13 @@ export const readEmployee = async (
   try {
     const employee = await Employee.findOne({ email }).select("-_id");
     return employee
-      ? res.status(200).json(employee)
-      : res.status(404).json({ message: "Employee not found." });
+      ? res.json(employee).status(200)
+      : res.json({ message: "Employee not found." }).status(404);
   } catch (_error) {
     console.log(
       `Something went wrong while creating a new employee. 💩 Error: ${_error}`
     );
-    res.status(500).json({ error: "Something went wrong." });
+    res.json({ error: "Something went wrong." }).status(500);
   }
 };
 
@@ -30,12 +30,12 @@ export const readAllEmployees = async (
 ) => {
   try {
     const employees = await Employee.find().select("-_id");
-    return res.status(200).json(employees);
+    return res.json(employees).status(200);
   } catch (_error) {
     console.log(
       `Something went wrong while creating a new employee. 💩 Error: ${_error}`
     );
-    res.status(500).json({ error: "Something went wrong." });
+    res.json({ error: "Something went wrong." }).status(500);
   }
 };
 
@@ -46,15 +46,17 @@ export const updateEmployee = async (
 ) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    return res.json({ errors: errors.array() }).status(400);
   }
 
   const { email } = req.auth!;
 
   if (req.body.email) {
-    return res.status(401).json({
-      error: "Cannot update email at this time.",
-    });
+    return res
+      .json({
+        error: "Cannot update email at this time.",
+      })
+      .status(401);
   }
 
   try {
@@ -62,14 +64,14 @@ export const updateEmployee = async (
     if (employee) {
       employee.set(req.body);
       await employee.save();
-      return res.status(201).json({ message: "Employee updated." });
+      return res.json({ message: "Employee updated." }).status(201);
     }
-    return res.status(404).json({ message: "Employee not found." });
+    return res.json({ message: "Employee not found." }).status(404);
   } catch (_error) {
     console.log(
       `Something went wrong while creating a new employee. 💩 Error: ${_error}`
     );
-    res.status(500).json({ error: "Something went wrong." });
+    res.json({ error: "Something went wrong." }).status(500);
   }
 };
 
@@ -80,7 +82,7 @@ export const deleteEmployee = async (
 ) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    return res.json({ errors: errors.array() }).status(400);
   }
 
   const { email } = req.auth!;
@@ -89,16 +91,16 @@ export const deleteEmployee = async (
     const employee = await Employee.findOne({ email });
 
     if (!employee) {
-      return res.status(404).json({ message: "Employee not found." });
+      return res.json({ message: "Employee not found." }).status(404);
     }
 
     await Employee.deleteOne({ email });
 
-    return res.status(200).json({ message: "Employee deleted successfully." });
+    return res.json({ message: "Employee deleted successfully." }).status(200);
   } catch (_error) {
     console.log(
       `Something went wrong while creating a new employee. 💩 Error: ${_error}`
     );
-    res.status(500).json({ error: "Something went wrong." });
+    res.json({ error: "Something went wrong." }).status(500);
   }
 };
