@@ -36,7 +36,7 @@ const StartServer = () => {
 
   router.use(express.json());
 
-  // Roules of API
+  // Rules of API
   router.use((req: Request, res: Response, next: NextFunction) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
