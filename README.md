@@ -1,7 +1,7 @@
 # employee-management-server
 
 An open source application that allows multiple companies manage their employees.
-It features employee profiles, sign in, authorization and authentication, company profiles, admins, e.t.c. All built with Typescript.
+It features employee profiles, sign in, authorization and authentication, coming soon (company profiles, admins), e.t.c. All built with Typescript.
 
 These are the environment variables needed to configure the application:
 MONGO_USERNAME=
