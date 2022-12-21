@@ -6,6 +6,7 @@ It features employee profiles, sign in, authorization and authentication, coming
 These are the environment variables needed to configure the application:
 
 MONGO_USERNAME=
+
 MONGO_PASSWORD=
 
 SERVER_PORT=
