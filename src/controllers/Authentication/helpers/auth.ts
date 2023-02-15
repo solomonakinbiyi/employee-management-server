@@ -1,7 +1,6 @@
 import bcrypt from "bcrypt";
 import { expressjwt } from "express-jwt";
 
-
 export const hashPassword = (password: string) => {
   return new Promise((resolve, reject) => {
     bcrypt.genSalt(12, (err, salt) => {
@@ -23,6 +22,6 @@ export const comparePassword = (password: string, hashed: string) => {
 };
 
 export const requireSignIn = expressjwt({
-  secret: process.env.JWT_SECRET!,
+  secret: `${process.env.JWT_SECRET!}`,
   algorithms: ["HS256"],
 });

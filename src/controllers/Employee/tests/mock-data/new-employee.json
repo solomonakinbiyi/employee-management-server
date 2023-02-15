@@ -1,0 +1,13 @@
+{
+  "_id": "527367d6sdsdsdsdhhddu",
+  "firstname": "Test",
+  "lastname": "user",
+  "email": "user@example.com",
+  "password": "password",
+  "street": "test street",
+  "city": "test city",
+  "state": "test state",
+  "zipcode": "test zipcode",
+  "country": "test country",
+  "phone": "test phone"
+}

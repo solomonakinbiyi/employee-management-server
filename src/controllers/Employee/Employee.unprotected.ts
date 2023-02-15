@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import Employee from "../../models/Employee";
 import { hashPassword } from "../Authentication/helpers/auth";
 import { validationResult } from "express-validator";
+import { IEmployee } from "./interfaces/IEmployee";
 
 export const createEmployee = async (
   req: Request,
@@ -10,17 +11,17 @@ export const createEmployee = async (
   next: NextFunction
 ) => {
   let {
-    firstname,
-    lastname,
-    email,
-    password,
-    street,
-    city,
-    state,
-    zipcode,
-    country,
-    phone,
-  } = req.body;
+    firstname = "",
+    lastname = "",
+    email = "",
+    password = "",
+    street = "",
+    city = "",
+    state = "",
+    zipcode = "",
+    country = "",
+    phone = "",
+  }: IEmployee = req.body;
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

@@ -1,9 +1,5 @@
+/**@type {import('ts-jest/dist/types').InitialOptionsTsJest*/
 module.exports = {
-  verbose: true,
-  moduleFileExtensions: ["js", "jsx", "ts", "tsx"],
-  moduleDirectories: ["node_modules", "src"],
-  moduleNameMapper: {
-    "\\.(css|less|scss)$": "identity-obj-proxy"
-  },
-  testEnvironment: "node"
+    preset: 'ts-jest',
+    testEnvironment: "node",
 }
