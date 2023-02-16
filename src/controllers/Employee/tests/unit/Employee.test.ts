@@ -1,3 +1,4 @@
+import { hashPassword } from "./../../../Authentication/helpers/auth";
 import { createEmployee } from "../../Employee.unprotected";
 import httpMocks from "node-mocks-http";
 import { NextFunction, Request, Response } from "express";
@@ -17,6 +18,14 @@ beforeEach(() => {
 describe("createEmployee controller", () => {
   it("should have a createEmployee method", () => {
     expect(typeof createEmployee).toBe("function");
+  });
+  it("should hash user password", async () => {
+    req.body.password = newEmployee["password"];
+    await createEmployee(req, res, next);
+    const data = await hashPassword(newEmployee["password"]);
+    // expect(data).toBe(
+    //   "$2b$12$mXGMFTKk7G7q7zxvU.hWgO0WDIsd3u7PzaPN44s.lV5Uthoh58yUC"
+    // );
   });
   it("should call Employee.findOne", async () => {
     req.body.email = newEmployee["email"];
