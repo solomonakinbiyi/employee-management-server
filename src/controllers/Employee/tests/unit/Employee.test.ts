@@ -23,9 +23,7 @@ describe("createEmployee controller", () => {
     req.body.password = newEmployee["password"];
     await createEmployee(req, res, next);
     const data = await hashPassword(newEmployee["password"]);
-    // expect(data).toBe(
-    //   "$2b$12$mXGMFTKk7G7q7zxvU.hWgO0WDIsd3u7PzaPN44s.lV5Uthoh58yUC"
-    // );
+    expect(data).toBeTruthy();
   });
   it("should call Employee.findOne", async () => {
     req.body.email = newEmployee["email"];
