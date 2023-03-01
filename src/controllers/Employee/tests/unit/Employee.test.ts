@@ -62,4 +62,9 @@ describe("readEmployee controller", () => {
   it("should have a readEmployee method", () => {
     expect(typeof readEmployee).toBe("function");
   });
+  it("should call Employee.findOne method", async () => {
+    req.body.email = newEmployee["email"];
+    await readEmployee(req, res, next);
+    expect(Employee.findOne).toBeCalledWith({ email: newEmployee["email"] });
+  });
 });
