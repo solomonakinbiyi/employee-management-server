@@ -1,5 +1,6 @@
 import { hashPassword } from "./../../../Authentication/helpers/auth";
 import { createEmployee } from "../../Employee.unprotected";
+import { readEmployee } from "../../Employee.protected";
 import httpMocks from "node-mocks-http";
 import { NextFunction, Request, Response } from "express";
 import Employee from "../../../../models/Employee";
@@ -53,6 +54,37 @@ describe("createEmployee controller", () => {
     expect(res._isEndCalled()).toBeTruthy();
     expect(res._getJSONData()).toStrictEqual({
       message: "Empoyee created successfully.",
+    });
+  });
+});
+
+describe("readEmployee controller", () => {
+  it("should have a readEmployee method", () => {
+    expect(typeof readEmployee).toBe("function");
+  });
+  it("should call Employee.findOne method", async () => {
+    req.body.email = newEmployee["email"];
+    await readEmployee(req, res, next);
+    expect(Employee.findOne).toBeCalledWith({ email: newEmployee["email"] });
+  });
+  it("should return an employee model with status code of 200", async () => {
+    (Employee.findOne as jest.Mock).mockReturnValue(newEmployee);
+    req.params.email = newEmployee["email"];
+    await readEmployee(req, res, next);
+    expect(Employee.findOne).toBeCalledWith({ email: newEmployee["email"] });
+    expect(res.statusCode).toBe(200);
+    expect(res._isEndCalled()).toBeTruthy();
+    expect(res._getJSONData()).toStrictEqual(newEmployee);
+  });
+  it("should return json body of message: Employee not found. with status code of 404", async () => {
+    (Employee.findOne as jest.Mock).mockReturnValue(null);
+    req.params.email = newEmployee["email"];
+    await readEmployee(req, res, next);
+    expect(Employee.findOne).toBeCalledWith({ email: newEmployee["email"] });
+    expect(res.statusCode).toBe(404);
+    expect(res._isEndCalled()).toBeTruthy();
+    expect(res._getJSONData()).toStrictEqual({
+      message: "Employee not found.",
     });
   });
 });

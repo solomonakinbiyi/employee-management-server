@@ -11,7 +11,7 @@ export const readEmployee = async (
   const { email } = req.params;
 
   try {
-    const employee = await Employee.findOne({ email }).select("-_id");
+    const employee = await Employee.findOne({ email });
     return employee
       ? res.json(employee).status(200)
       : res.json({ message: "Employee not found." }).status(404);
