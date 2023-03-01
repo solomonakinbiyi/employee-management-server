@@ -7,7 +7,12 @@ const newEmployee = require("../mock-data/new-employee.json");
 
 jest.mock("../../../../models/Employee.ts");
 
-let req: Request, res: Response, next: NextFunction;
+interface ICustomRequest extends Response {
+  _isEndCalled(): any;
+  _getJSONData(): any;
+}
+
+let req: Request, res: ICustomRequest, next: NextFunction;
 
 beforeEach(() => {
   req = httpMocks.createRequest();
@@ -29,5 +34,25 @@ describe("createEmployee controller", () => {
     req.body.email = newEmployee["email"];
     await createEmployee(req, res, next);
     expect(Employee.findOne).toBeCalledWith({ email: newEmployee["email"] });
+  });
+  it("should return json body of Email already exists. and response code 400", async () => {
+    (Employee.findOne as jest.Mock).mockReturnValue(newEmployee);
+    req.body.email = newEmployee["email"];
+    await createEmployee(req, res, next);
+    expect(res.statusCode).toBe(400);
+    expect(res._isEndCalled()).toBeTruthy();
+    expect(res._getJSONData()).toStrictEqual({
+      error: "Email already exists.",
+    });
+  });
+  it("should return json body of Empoyee created successfully. and status code of 200", async () => {
+    (Employee.findOne as jest.Mock).mockReturnValue(null);
+    req.body.email = newEmployee["email"];
+    await createEmployee(req, res, next);
+    expect(res.statusCode).toBe(200);
+    expect(res._isEndCalled()).toBeTruthy();
+    expect(res._getJSONData()).toStrictEqual({
+      message: "Empoyee created successfully.",
+    });
   });
 });

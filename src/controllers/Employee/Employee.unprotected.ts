@@ -64,11 +64,11 @@ export const createEmployee = async (
           error: "Email already exists.",
         })
         .status(400);
+    } else {
+      await employee.save();
+
+      return res.json({ message: "Empoyee created successfully." }).status(200);
     }
-
-    await employee.save();
-
-    return res.json({ message: "Empoyee created successfully." }).status(200);
   } catch (_error) {
     console.log(
       `Something went wrong while creating a new employee. 💩 Error: ${_error}`
