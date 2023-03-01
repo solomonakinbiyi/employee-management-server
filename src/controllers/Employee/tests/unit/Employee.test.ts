@@ -45,4 +45,14 @@ describe("createEmployee controller", () => {
       error: "Email already exists.",
     });
   });
+  it("should return json body of Empoyee created successfully. and status code of 200", async () => {
+    (Employee.findOne as jest.Mock).mockReturnValue(null);
+    req.body.email = newEmployee["email"];
+    await createEmployee(req, res, next);
+    expect(res.statusCode).toBe(200);
+    expect(res._isEndCalled()).toBeTruthy();
+    expect(res._getJSONData()).toStrictEqual({
+      message: "Empoyee created successfully.",
+    });
+  });
 });
