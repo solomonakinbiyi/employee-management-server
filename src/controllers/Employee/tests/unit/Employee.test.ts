@@ -1,5 +1,6 @@
 import { hashPassword } from "./../../../Authentication/helpers/auth";
 import { createEmployee } from "../../Employee.unprotected";
+import { readEmployee } from "../../Employee.protected";
 import httpMocks from "node-mocks-http";
 import { NextFunction, Request, Response } from "express";
 import Employee from "../../../../models/Employee";
@@ -54,5 +55,11 @@ describe("createEmployee controller", () => {
     expect(res._getJSONData()).toStrictEqual({
       message: "Empoyee created successfully.",
     });
+  });
+});
+
+describe("readEmployee controller", () => {
+  it("should have a readEmployee method", () => {
+    expect(typeof readEmployee).toBe("function");
   });
 });
