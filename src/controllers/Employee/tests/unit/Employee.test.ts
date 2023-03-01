@@ -76,4 +76,15 @@ describe("readEmployee controller", () => {
     expect(res._isEndCalled()).toBeTruthy();
     expect(res._getJSONData()).toStrictEqual(newEmployee);
   });
+  it("should return json body of message: Employee not found. with status code of 404", async () => {
+    (Employee.findOne as jest.Mock).mockReturnValue(null);
+    req.params.email = newEmployee["email"];
+    await readEmployee(req, res, next);
+    expect(Employee.findOne).toBeCalledWith({ email: newEmployee["email"] });
+    expect(res.statusCode).toBe(404);
+    expect(res._isEndCalled()).toBeTruthy();
+    expect(res._getJSONData()).toStrictEqual({
+      message: "Employee not found.",
+    });
+  });
 });
