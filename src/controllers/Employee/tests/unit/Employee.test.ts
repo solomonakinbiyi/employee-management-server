@@ -67,4 +67,13 @@ describe("readEmployee controller", () => {
     await readEmployee(req, res, next);
     expect(Employee.findOne).toBeCalledWith({ email: newEmployee["email"] });
   });
+  it("should return an employee model with status code of 200", async () => {
+    (Employee.findOne as jest.Mock).mockReturnValue(newEmployee);
+    req.params.email = newEmployee["email"];
+    await readEmployee(req, res, next);
+    expect(Employee.findOne).toBeCalledWith({ email: newEmployee["email"] });
+    expect(res.statusCode).toBe(200);
+    expect(res._isEndCalled()).toBeTruthy();
+    expect(res._getJSONData()).toStrictEqual(newEmployee);
+  });
 });
